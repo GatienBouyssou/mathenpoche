@@ -1,0 +1,23 @@
+.collapsible{
+    border: none;
+    box-shadow: none;
+    position: relative
+}
+
+.collapsible-body {
+    border: none;
+}
+
+.collapsible-header .dropDownArrow {
+    position: absolute;
+    right: 0;
+}
+
+.addingLink {
+    margin-top: 2em;
+    color: #4CAF50;
+}
+
+.addingLink:hover {
+    color: #878787;
+}

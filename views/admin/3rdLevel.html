@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>3e</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/general.css">
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/levels.css">
+    <link rel="stylesheet" type="text/css" href="../../stylesheets/Components/collapsible.css">
+</head>
+<body>
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="profilePage.html">Profile settings</a></li>
+        <li class="divider"></li>
+        <li><a href="../homePage.handlebars">Logout</a></li>
+    </ul>
+    <div class="navbar-fixed">
+        <nav>
+            <div class="nav-wrapper z-depth-3">
+                <a href="HomePage.html" class="brand-logo">Logo</a>
+                <ul id="nav-mobile" class="hide-on-med-and-down">
+                    <div class="leftSideNav">
+                        <li><a class="link" href="3rdLevel.html">3e</a></li>
+                        <li><a class="link" href="">4e</a></li>
+                        <li><a class="link" href="">5e</a></li>
+                        <li><a class="link" href="#">6e</a></li>
+                    </div>
+
+                    <li class="right"><a class="link" href="">About</a></li>
+                    <li class="right"><a id="loginBtn" class="dropdown-trigger" href="#!" data-target="dropdown1"><i class="material-icons left">account_circle</i>Username</a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
+    <section class="container">
+        <header class="titleSection row">
+            <div class="col s12 m8 l4">
+                <h4 class="title">3e - Lessons and Exercises</h4>
+            </div>
+            <div class="input-field col s12 m4 offset-l4 l4">
+                <i class="material-icons prefix">search</i>
+                <input id="search" type="text" class="validate">
+                <label for="search">Search</label>
+            </div>
+        </header>
+        <div class="divider"></div>
+        <a class="waves-effect waves-light addingLink" href="../addElement.handlebars"><i class="material-icons left">add_circle_outline</i>Add ...</a>
+        <ul class="collapsible">
+            <li class="firstLevel">
+                <div class="collapsible-header">Chapter 1<i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
+                <div class="collapsible-body">
+                    <ul class="collapsible">
+                        <li class="secondLevel">
+                            <div class="collapsible-header"><a class="linkItemList" href="">Lesson 1</a><i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
+                            <div class="collapsible-body">
+                                <ul class="collapsible">
+                                    <li>
+                                        <div class="collapsible-header"><a class="linkItemList" href="">Exercise 1</a></div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header"><a class="linkItemList" href="">Exercise 2</a></div>
+                                    </li>
+                                    <li>
+                                        <div class="collapsible-header"><a class="linkItemList" href="">Exercise 3</a></div>
+                                    </li>
+                                    <li><a class="waves-effect waves-light addingLink" href="../addElement.handlebars"><i class="material-icons left">add_circle_outline</i>Add exercise</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li><a class="waves-effect waves-light addingLink" href="../addElement.handlebars"><i class="material-icons left">add_circle_outline</i>Add lesson</a></li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+
+
+    <script type="text/javascript" src="../../javascripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../../javascripts/materialize.min.js"></script>
+    <script type="text/javascript" src="../../javascripts/general.js"></script>
+</body>
+</html>

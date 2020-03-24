@@ -1,0 +1,32 @@
+{{#if this.username}}
+    <ul id="dropdown1" class="dropdown-content">
+        <li><a href="/profile">Profile settings</a></li>
+        <li class="divider"></li>
+        <li><a href="/logout">Logout</a></li>
+    </ul>
+{{/if}}
+
+<div class="navbar-fixed">
+    <nav>
+        <div class="nav-wrapper z-depth-3">
+            <a href="/" class="brand-logo">Logo</a>
+            <ul id="nav-mobile" class="hide-on-med-and-down">
+                <div class="leftSideNav">
+                    <li><a class="link" href="/troisieme">3e</a></li>
+                    <li><a class="link" href="/quatrieme">4e</a></li>
+                    <li><a class="link" href="/cinquieme">5e</a></li>
+                    <li><a class="link" href="/sixieme">6e</a></li>
+                </div>
+
+                <li class="right"><a class="link" href="/about">About</a></li>
+                {{#if this.username}}
+                    <li class="right"><a class="dropdown-trigger loggedDropdown" data-target="dropdown1"><i class="material-icons left">account_circle</i>{{this.username}}</a></li>
+                {{else if isConnecting}}
+
+                {{else}}
+                    <li class="right"><a id="loginBtn" class="waves-effect btn-small" href="/connection">Log in</a></li>
+                {{/if}}
+            </ul>
+        </div>
+    </nav>
+</div>

@@ -1,0 +1,21 @@
+.customValign {
+    height: 80px;
+}
+
+.selectionCollection {
+    max-height: 200px;
+    overflow: scroll;
+}
+
+.collection-item:hover {
+    background-color: #bcbcbc;
+    cursor: pointer;
+}
+
+.marginLeft {
+    margin-left: 0.75rem;
+}
+
+h5 {
+    margin-top: 0;
+}

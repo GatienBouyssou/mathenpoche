@@ -1,0 +1,22 @@
+.listNewContent {
+    margin-left: 2em;
+}
+
+.listNewContent ul li {
+    padding-bottom: 5px;
+}
+
+.listNewContent ul li a {
+    height: 100%;
+    display: block;
+}
+
+.listNewContent ul li span {
+    font-size: 26px;
+}
+
+.listNewContent ul li i {
+    display:block;
+    height: 100%;
+    line-height: 150%;
+}

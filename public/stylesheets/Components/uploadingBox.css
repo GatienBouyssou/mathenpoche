@@ -1,0 +1,137 @@
+.pointer {
+    cursor: pointer;
+}
+
+#popupContainer {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+}
+
+#closeImg {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 10px;
+}
+
+.matchParent {
+    width: 100%;
+    height: 100%;
+}
+
+/*CSS for the popup*/
+
+#fileUploader {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+
+.informationUpload  {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    transform: translate(-50%,0);
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#labelUpload strong {
+    color: blue;
+}
+
+#duringUpload {
+    display: none;
+}
+
+#fileUploaderDiv {
+    margin-top: 30px;
+    width: 100%;
+    height: 200px;
+}
+
+/*Border colors that will change if someone drag a file into the box*/
+
+.greyDashedBorder {
+    border: dashed 2px grey;
+    background-color: #e9e9e9;
+}
+
+.redDashedBorder {
+    outline: 3px dashed red;
+    background-color: white;
+}
+
+/*label are triggered in the ondrag and change depending on the situation*/
+
+.successfulLabel {
+    color: green;
+    font-weight: bold;
+}
+
+.informationLabel {
+    color: grey;
+    font-weight: bold;
+}
+
+.errorLabel {
+    color: red;
+    font-weight: bold;
+    display: none;
+}
+
+.leaveSpaceTop {
+    margin-top: 1em;
+}
+
+#cancelBtn {
+    margin-right: 50px;
+}
+
+
+#uploadForm {
+    position: relative;
+    margin-bottom: 1em;
+}
+
+/*Adapt the size of the profile picture depending on the size of the screen*/
+
+@media screen and (min-width: 767px) {
+    .roundImage {
+        width: 300px;
+        height: 300px;
+    }
+
+    #popupButtons {
+        display: flex;
+        display: -webkit-flex;
+        justify-content: center;
+    }
+
+}
+
+@media screen and (max-width: 767px) {
+    .roundImage {
+        width: 150px;
+        height: 150px;
+    }
+
+    #profileImage {
+        top: -75px;
+    }
+
+    #popup {
+        padding: 5px;
+    }
+
+    #changeBtn {
+        margin-top: 20px;
+    }
+}

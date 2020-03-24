@@ -1,0 +1,25 @@
+{{#content "links"}}
+    <link rel="stylesheet" type="text/css" href="/stylesheets/levels.css">
+{{/content}}
+
+<header class="titleSection row">
+    <div class="col s12 m8 l4">
+        {{#ifCond this.levelName '===' 'Troisieme'}}
+            <h4 class="title">3e - Lessons and Exercises</h4>
+        {{else ifCond this.levelName '===' 'Quatrieme'}}
+            <h4 class="title">4e - Lessons and Exercises</h4>
+        {{else ifCond this.levelName '===' 'Cinquieme'}}
+            <h4 class="title">5e - Lessons and Exercises</h4>
+        {{else}}
+            <h4 class="title">6e - Lessons and Exercises</h4>
+        {{/ifCond}}
+    </div>
+    <div class="input-field col s12 m4 offset-l4 l4">
+        <i class="material-icons prefix">search</i>
+        <input id="search" type="text" class="validate">
+        <label for="search">Search</label>
+    </div>
+</header>
+<div class="divider"></div>
+
+{{> collapsible}}

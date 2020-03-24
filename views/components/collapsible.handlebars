@@ -1,0 +1,40 @@
+{{#content "links"}}
+    <link rel="stylesheet" type="text/css" href="/stylesheets/Components/collapsible.css">
+{{/content}}
+{{#if isAdmin}}
+    <a class="waves-effect waves-light addingLink" href="/addChapter"><i class="material-icons left">add_circle_outline</i>Add ...</a>
+{{/if}}
+<section class="section">
+    <ul class="collapsible col s12">
+        <li>
+            <div class="collapsible-header col s12">Chapter 1<i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
+            <div class="collapsible-body col s12">
+                <ul class="collapsible">
+                    <li>
+                        <div class="collapsible-header"><a class="linkItemList" href="">Lesson 1</a><i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
+                        <div class="collapsible-body">
+                            <ul class="collapsible">
+                                <li>
+                                    <div class="collapsible-header"><a class="linkItemList" href="">Exercise 1</a></div>
+                                </li>
+                                <li>
+                                    <div class="collapsible-header"><a class="linkItemList" href="">Exercise 2</a></div>
+                                </li>
+                                <li>
+                                    <div class="collapsible-header"><a class="linkItemList" href="">Exercise 3</a></div>
+                                </li>
+                                {{#if isAdmin}}
+                                    <li><a class="waves-effect waves-light addingLink" href="/addExercise"><i class="material-icons left">add_circle_outline</i>Add exercise</a></li>
+                                {{/if}}
+                            </ul>
+                        </div>
+                    </li>
+                    {{#if isAdmin}}
+                        <li><a class="waves-effect waves-light addingLink" href="/addLesson"><i class="material-icons left">add_circle_outline</i>Add lesson</a></li>
+                    {{/if}}
+                </ul>
+            </div>
+        </li>
+    </ul>
+</section>
+

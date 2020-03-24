@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{this.title}}</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/materialize.min.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/general.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    {{#block "links"}}
+    {{/block}}
+</head>
+<body>
+    {{> navigation}}
+    <section class="container">
+        {{{body}}}
+    </section>
+    <footer>
+    </footer>
+    <script type="text/javascript" src="/javascripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/javascripts/materialize.min.js"></script>
+    <script type="text/javascript" src="/javascripts/general.js"></script>
+    {{#block "scripts"}}
+    {{/block}}
+</body>
+</html>

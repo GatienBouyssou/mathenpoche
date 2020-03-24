@@ -1,0 +1,162 @@
+{{#content 'links'}}
+    <link rel="stylesheet" type="text/css" href="/stylesheets/Components/newItemList.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/Components/uploadingBox.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/addElement.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/Components/collapsible.css">
+{{/content}}
+
+<header class="titleSection row s12 m12">
+    <h3 class="title">Add an element to the architecture</h3>
+    <div class="divider"></div>
+</header>
+
+<section class="section hideElController">
+    <div class="row"><span class="col s12">What kind of element do you want to add ?</span></div>
+    <div class="row">
+        <div class="input-field col s12 m4">
+            <select id="selectTypeElement">
+                {{#ifCond this.itemType '===' 'exercise'}}
+                    <option value="chapter">Chapter</option>
+                    <option value="lesson" selected>Lesson</option>
+                    <option value="exercise" selected>Exercise</option>
+                {{else ifCond this.itemType '===' 'lesson'}}
+                    <option value="chapter">Chapter</option>
+                    <option value="lesson" selected>Lesson</option>
+                    <option value="exercise">Exercise</option>
+                {{else}}
+                    <option value="chapter" selected>Chapter</option>
+                    <option value="lesson">Lesson</option>
+                    <option value="exercise">Exercise</option>
+                {{/ifCond}}
+            </select>
+            <label for="selectTypeElement">Materialize Select</label>
+        </div>
+    </div>
+</section>
+
+<section class="section addElementPart">
+    <section class="section chapter">
+        <div class="row"><h5 class="col s12">Create a new chapter.</h5></div>
+        <div class="row"><span class="col s12">The chapter will be inserted above :</span></div>
+        <div class="row">
+            <div class="col s12">
+                <ul class="collection selectionCollection">
+                    <li class="collection-item truncate active">Chapter X : This is a very long title. Yeah you can say !</li>
+                    <li class="collection-item truncate">Chapter X : This is a very long title. Yeah you can say !</li>
+                    <li class="collection-item truncate">Chapter X : This is a very long title. Yeah you can say !</li>
+                    <li class="collection-item truncate">Chapter X : This is a very long title. Yeah you can say !</li>
+                    <li class="collection-item truncate">Chapter X : This is a very long title. Yeah you can say !</li>
+                    <li class="collection-item truncate">Chapter X : This is a very long title. Yeah you can say !</li>
+                    <li class="collection-item truncate">Chapter X : This is a very long title. Yeah you can say !</li>
+                    <li class="collection-item truncate">Chapter X : This is a very long title. Yeah you can say !</li>
+                </ul>
+            </div>
+        </div>
+        <div class="row">
+            <form action="admin/3rdLevel.html" method="post" class="col s12">
+                <div class="row">
+                    <div class="col s12 m2 valign-wrapper customValign">
+                        <span>Chapter : </span>
+                    </div>
+                    <div class="input-field col s12 m6">
+                        <input placeholder="Title" id="chapterTitle" type="text" class="validate" required>
+                        <label for="chapterTitle">Title</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <input type="submit" value="Create the chapter" class="marginLeftAuto btn waves-effect waves-teal">
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <section class="section lesson">
+        <div class="row"><h5 class="col s12">Create a new lesson.</h5></div>
+        <div class="row"><span class="col s12">The lesson will be inserted above (Chapter 1 Lesson 1 are selected by default):</span></div>
+        <div class="row">
+            <ul class="collapsible selectionCollection">
+                <li class="firstLevel">
+                    <div class="collapsible-header">Chapter 1<i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
+                    <div class="collapsible-body">
+                        <ul class="collection">
+                            <li class="collection-item active"> Lesson 1 : this is the title of the lesson</li>
+                            <li class="collection-item"> Lesson 1 : this is the title of the lesson</li>
+                            <li class="collection-item"> Lesson 1 : this is the title of the lesson</li>
+                            <li class="collection-item"> Lesson 1 : this is the title of the lesson</li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <form class="col s12" method="post" action="admin/3rdLevel.html" enctype="multipart/form-data" >
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input placeholder="Title" id="lessonTitle" type="text" class="validate" required>
+                        <label for="lessonTitle">Lesson title</label>
+                    </div>
+                </div>
+                <div class="row"><span class="col s12">Select the pdf related to the lessons.</span></div>
+                <section id="uploadForm"  class="uploadingBox matchParent leaveSpaceTop marginLeftAuto">
+                    <div id="fileUploaderDiv" class="greyDashedBorder">
+                        <input id="fileUploader" class="matchParent" name="file" type="file" ><br>
+                    </div>
+
+                    <div id="informationLabels" class="informationUpload">
+                        <span class="fileSelected center-align"></span>
+                        <span id="duringUpload" class="informationLabel">Drop to upload</span>
+                        <span id="errorUpload" class="errorLabel">An error happened during the import. Please import a pdf file.</span><br>
+                        <label id="labelUpload"  for="fileUploader"><strong class="pointer">Choose a file</strong><span class="box__dragndrop"> or drag it here</span>.</label>
+                    </div>
+                </section>
+                <div class="row">
+                    <input id="changeBtn" type="submit" value="Create the lesson" class="btn waves-effect waves-teal">
+                </div>
+            </form>
+        </div>
+
+    </section>
+
+    <section class="section exercise">
+        <div class="row"><h5 class="col s12">Create a new exercise.</h5></div>
+        <div class="row"><span class="col s12">The exercise will be inserted above (Chapter 1 Lesson 1 are selected by default):</span></div>
+        <div class="row">
+            <ul class="collapsible selectionCollection">
+                <li class="firstLevel">
+                    <div class="collapsible-header">Chapter 1<i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
+                    <div class="collapsible-body">
+                        <ul class="collapsible">
+                            <li class="secondLevel">
+                                <div class="collapsible-header">Lesson 1<i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
+                                <div class="collapsible-body">
+                                    <ul class="collection">
+                                        <li class="collection-item active"> Exercise 1 : this is the title of the exercise</li>
+                                        <li class="collection-item"> Exercise 1 : this is the title of the exercise</li>
+                                        <li class="collection-item"> Exercise 1 : this is the title of the exercise</li>
+                                        <li class="collection-item"> Exercise 1 : this is the title of the exercise</li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <form class="col s12" method="post" action="admin/3rdLevel.html">
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <input placeholder="Title" id="exerciseTitle" type="text" class="validate" required>
+                    <label for="exerciseTitle">Lesson title</label>
+                </div>
+            </div>
+            <div class="row">
+                <input type="submit" value="Create the exercise" class="btn waves-effect waves-teal">
+            </div>
+        </form>
+    </section>
+</section>
+
+{{#content "scripts"}}
+    <script type="text/javascript" src="/javascripts/uploadingBox.js"></script>
+    <script type="text/javascript" src="/javascripts/AddElementPage.js"></script>
+{{/content}}
