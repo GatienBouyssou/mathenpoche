@@ -1,6 +1,6 @@
 module.exports.homePage = function (req, res) {
     res.title = "Home";
-    if (req.session.login) {
+    if (req.session.userInfo) {
         res.username = req.session.login;
         if (req.session.isAdmin) {
             res.isAdmin = true;

@@ -6,14 +6,23 @@
   <div id="loginContainer" class="row card">
       <!--buttons allows us to swap between the sign in and sign up-->
       <div id="changingLinks" class="row">
-          <a id="loginLink" href="#" class="activeLink">Log in</a>
-          <a id="signupLink" href="#" class="col offset-s2 offset-m2 offset-l2">Sign up</a>
+          {{# if isSigningUp}}
+              <a id="loginLink" href="#" class="">Log in</a>
+              <a id="signupLink" href="#" class="col offset-s2 offset-m2 offset-l2 activeLink">Sign up</a>
+          {{else}}
+              <a id="loginLink" href="#" class="activeLink">Log in</a>
+              <a id="signupLink" href="#" class="col offset-s2 offset-m2 offset-l2">Sign up</a>
+          {{/if}}
       </div>
         <!--sign in form send directly to the home page for now-->
-      <form id="signInForm" class="col s12 l12 m12" method="post" action="/signIn">
+      {{# if isSigningUp}}
+        <form id="signInForm" class="col s12 l12 m12 hiddenSection" method="post" action="/signIn">
+      {{else}}
+        <form id="signInForm" class="col s12 l12 m12" method="post" action="/signIn">
+      {{/if}}
           <div class="row">
               <div class="input-field col s12">
-                  <input placeholder="Username" id="usernameLogin" name="username" type="text" class="validate">
+                  <input placeholder="email@example.com" id="usernameLogin" name="username" type="text" class="validate">
                   <label for="usernameLogin">Username</label>
               </div>
           </div>
@@ -29,52 +38,18 @@
               </div>
           </div>
       </form>
+
         <!--sign up form send directly to home page verifications needs to be done server side-->
+      {{# if isSigningUp}}
       <form id="signUpForm" class="col s12 l12 m12" method="post" action="/signUp">
-          <div class="row">
-              <div class="input-field col s12">
-                  <input placeholder="Username" id="usernameSignup" name="username" type="text" class="validate">
-                  <label for="usernameSignup">Username</label>
-              </div>
-          </div>
-          <div class="row">
-              <div class="input-field col s12 m5">
-                  <input placeholder="First name" id="firstName" name="firstname" type="password" class="validate">
-                  <label for="firstName">First name</label>
-              </div>
+      {{else}}
+      <form id="signUpForm" class="col s12 l12 m12 hiddenSection" method="post" action="/signUp">
+      {{/if}}
 
-              <div class="input-field col s12 m7">
-                  <input placeholder="Surname" id="surname" name="surname" type="password" class="validate">
-                  <label for="surname">Surname</label>
-              </div>
-          </div>
-
-          <div class="row">
-              <div class="input-field col s12">
-                  <input placeholder="email@example.com" id="email" name="email" type="email" class="validate">
-                  <label for="email">Your email</label>
-              </div>
-          </div>
-          <div class="row">
-              <div class="input-field col s12">
-                  <input placeholder="Password" id="passwordSignup" name="password" type="password" class="validate">
-                  <label for="passwordSignup">Password</label>
-              </div>
-          </div>
-          <div class="row">
-              <div class="input-field col s12">
-                  <input placeholder="Password" id="passwordConfirm" name="confirmedPassword" type="password" class="validate">
-                  <label for="passwordConfirm">Confirm you password</label>
-              </div>
-          </div>
-          <div class="row">
-              <div class="input-field col s12">
-                  <input id="submitButtonSignup" type="submit" class="btn waves-effect waves-teal" value="Sign up">
-              </div>
-          </div>
+        {{> formSignUp}}
 
       </form>
-
+      <span class="errorLabel">{{this.message}}</span>
   </div>
 </div>
 

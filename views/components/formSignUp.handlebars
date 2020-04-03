@@ -1,0 +1,49 @@
+<div class="row">
+    <div class="input-field col s12">
+        <input placeholder="Username" id="usernameSignup" name="username" type="text" value="{{this.body.username}}" class="validate {{#if this.errors.username}}invalid{{/if}}" required>
+        <label for="usernameSignup">Username</label>
+        <span id="usernameError" class="helper-text" data-error="{{#if this.errors.username}}{{this.errors.username}}{{/if}}" data-success="Right">Helper text</span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12 m5">
+        <input placeholder="First name" id="firstName" name="firstName" value="{{this.body.firstName}}" type="text" class="validate {{#if this.errors.firstName}}invalid{{/if}}" require>
+        <label for="firstName">First name</label>
+        <span id="firstNameError" class="helper-text" data-error="{{#if this.errors.firstName}}{{this.errors.firstName}}{{/if}}" data-success="Right">Helper text</span>
+
+    </div>
+
+    <div class="input-field col s12 m7">
+        <input placeholder="Surname" id="surname" name="surname" value="{{this.body.surname}}" type="text" class="validate {{#if this.errors.surname}}invalid{{/if}}" require>
+        <label for="surname">Surname</label>
+        <span id="surnameError" class="helper-text" data-error="{{#if this.errors.surname}}{{this.errors.surname}}{{/if}}" data-success="Right">Helper text</span>
+
+    </div>
+</div>
+
+<div class="row">
+    <div class="input-field col s12">
+        <input placeholder="email@example.com" id="email" name="email" type="email" value="{{this.body.email}}" class="validate {{#if this.errors.email}}invalid{{/if}}">
+        <label for="email">Your email</label>
+        <span id="emailError" class="helper-text" data-error="{{#if this.errors.email}}{{this.errors.email}}{{else}}The shape of the email is incorrect{{/if}}" data-success="Right">Helper text</span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12">
+        <input placeholder="Password" id="passwordSignup" name="password" type="password" class="validate {{#if this.errors.password}}invalid{{/if}}">
+        <label for="passwordSignup">Password</label>
+        <span id="passwordError" class="helper-text" data-error="The password must contain +5 char and numbers" data-success="Right">Helper text</span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12">
+        <input placeholder="Password" id="passwordConfirm" name="confirmedPassword" type="password" class="validate {{#if this.errors.confirmedPassword}}invalid{{/if}}">
+        <label for="passwordConfirm">Confirm you password</label>
+        <span id="passwordConfirmError" class="helper-text" data-error="Passwords don't match" data-success="Right">Helper text</span>
+    </div>
+</div>
+<div class="row">
+    <div class="input-field col s12">
+        <input id="submitButtonSignup" type="submit" class="btn waves-effect waves-teal" value="Sign up">
+    </div>
+</div>

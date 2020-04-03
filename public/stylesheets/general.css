@@ -79,6 +79,14 @@ nav #nav-mobile .right {
     padding-bottom: 5px;
 }
 
+.errorLabel {
+    color: red;
+}
+
+.success {
+    color: green;
+}
+
 @media only screen and (max-width: 600px) {
     h1,h2, h3 {
         text-align: center;

@@ -11,11 +11,14 @@
     "express": "~4.16.1",
     "express-handlebars": "^3.1.0",
     "express-session": "^1.17.0",
+    "express-validator": "^6.4.0",
     "handlebars": "^4.7.3",
     "handlebars-layouts": "^3.1.4",
     "hbs": "~4.0.4",
+    "helmet": "^3.22.0",
     "http-errors": "~1.6.3",
     "moment": "^2.24.0",
+    "mongodb": "^3.5.5",
     "morgan": "~1.9.1"
   }
 }

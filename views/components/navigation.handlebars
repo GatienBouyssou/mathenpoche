@@ -1,4 +1,4 @@
-{{#if this.username}}
+{{#if this.userInfo}}
     <ul id="dropdown1" class="dropdown-content">
         <li><a href="/profile">Profile settings</a></li>
         <li class="divider"></li>
@@ -19,8 +19,8 @@
                 </div>
 
                 <li class="right"><a class="link" href="/about">About</a></li>
-                {{#if this.username}}
-                    <li class="right"><a class="dropdown-trigger loggedDropdown" data-target="dropdown1"><i class="material-icons left">account_circle</i>{{this.username}}</a></li>
+                {{#if this.userInfo}}
+                    <li class="right"><a class="dropdown-trigger loggedDropdown" data-target="dropdown1"><i class="material-icons left">account_circle</i>{{this.userInfo.username}}</a></li>
                 {{else if isConnecting}}
 
                 {{else}}

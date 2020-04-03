@@ -3,6 +3,7 @@ let express = require('express');
 let session = require('express-session');
 let path = require('path');
 let http = require('http');
+let helmet = require('helmet');
 let cookieParser = require('cookie-parser');
 
 let app = express();
@@ -13,6 +14,7 @@ app.set("port", 6900);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
+app.use(helmet());
 app.use(cookieParser());
 app.use(session({
   secret: 'nC0@#1pM/-0qA1+é',
@@ -23,7 +25,7 @@ app.use(session({
 
 app.use(function(request, response, next){
   response.locals.session = request.session;
-  app.locals.login = request.session.login;
+  app.locals.userInfo = request.session.userInfo;
   next()
 });
 

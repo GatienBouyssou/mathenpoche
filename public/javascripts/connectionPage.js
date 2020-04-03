@@ -1,8 +1,8 @@
 $(document).ready(() => {
 
-    $("#signUpForm").hide();
+    $("#loginContainer .hiddenSection").hide();
 
-    $("#loginLink").css("color", "red");
+    $(".activeLink").css("color", "red");
 
     $("#signupLink").on("click", (e) => {
         animationOutIn($("#signInForm"), $("#signUpForm"), $("#loginLink"), $("#signupLink"));
@@ -20,7 +20,8 @@ $(document).ready(() => {
             linkHighlighted.css("color", "red");
             $("#loginContainer").fadeIn("slow")
         })
-    }
+    };
+
 });
 
 

@@ -1,8 +1,9 @@
 let homeController = require("../controllers/homeController");
 let levelController = require("../controllers/levelController");
 let authController = require("../controllers/authenticationController");
-let profileController = require("../controllers/profileController");
 let adminController = require("../controllers/adminController");
+let profileController = require("../controllers/profileController");
+const { escapeAllField, userValidationRules, validate, userValidationRulesProfile, validateProfile} = require('../helpers/formValidator')
 
 module.exports = function (app) {
 
@@ -23,14 +24,15 @@ module.exports = function (app) {
 
     // Pages only for logged user
     app.get("/profile", profileController.profilePage);
+    app.post("/profile", userValidationRulesProfile(), validateProfile, profileController.modifyProfile);
 
     app.get('/addChapter', (req, res) => {adminController.add(req, res, 'chapter')});
     app.get('/addLesson', (req, res) => {adminController.add(req, res, 'lesson')});
     app.get('/addExercise', (req, res) => {adminController.add(req, res, 'exercise')});
 
     // post routes
-    app.post("/signIn", authController.signIn);
-    app.post("/signUp", authController.signUp);
+    app.post("/signIn", escapeAllField(), authController.signIn);
+    app.post("/signUp", userValidationRules(), validate, authController.signUp);
 
     app.get("*", (req, res) => {res.render('error', res)});
 };

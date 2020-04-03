@@ -1,5 +1,5 @@
 module.exports.add = function (req, res, itemType) {
-    if (req.session.login && req.session.isAdmin) {
+    if (req.session.userInfo && req.session.userInfo.isAdmin) {
         res.title = "Add";
         res.itemType = itemType;
         res.render('addElement', res);

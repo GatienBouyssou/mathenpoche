@@ -4,47 +4,11 @@
 </header>
 
 <section class="section">
-    <form id="signUpForm" class="col s12 m12" action="#">
-        <div class="row">
-            <div class="input-field col s12 m4">
-                <input placeholder="Username" id="usernameSignup" name="username" type="text" class="validate">
-                <label for="usernameSignup">Username</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12 m4">
-                <input placeholder="First name" id="firstName" name="firstname" type="password" class="validate">
-                <label for="firstName">First name</label>
-            </div>
-
-            <div class="input-field col s12 m4">
-                <input placeholder="Surname" id="surname" name="surname" type="password" class="validate">
-                <label for="surname">Surname</label>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="input-field col s12 m6">
-                <input placeholder="email@example.com" id="email" name="email" type="email" class="validate">
-                <label for="email">Your email</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12 m4">
-                <input placeholder="Password" id="passwordSignup" name="password" type="password" class="validate">
-                <label for="passwordSignup">Password</label>
-            </div>
-        <!--</div>
-        <div class="row">-->
-            <div class="input-field col s12 m4">
-                <input placeholder="Password" id="passwordConfirm" name="confirmedPassword" type="password" class="validate">
-                <label for="passwordConfirm">Confirm you password</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field col s12 m4">
-                <input id="submitButtonSignup" type="submit" class="btn waves-effect waves-teal" value="Modify profile">
-            </div>
-        </div>
+    <form id="profileForm" class="col s12 m12">
+        {{> formSignUp}}
     </form>
 </section>
+
+{{#content "scripts"}}
+    <script src="/javascripts/profilePage.js"></script>
+{{/content}}
