@@ -65,7 +65,7 @@ module.exports.findWithQuery = function (table, query, callback) {
     })
 };
 
-    module.exports.findOneElementOfArrayWithAggregation = function (table, userId, filter, callback) {
+module.exports.findOneElementOfArrayWithAggregation = function (table, userId, filter, callback) {
     dbConnection.getConnection((db) => {
         db.collection(table).aggregate([
             {$match: {_id:userId}},
@@ -80,5 +80,13 @@ module.exports.findWithQuery = function (table, query, callback) {
         ]).toArray((err, result) => {
             callback(err, result)
         });
+    });
+};
+
+module.exports.customAggregation = function(table, aggregation, callback) {
+    dbConnection.getConnection((db) => {
+        db.collection(table).aggregate(aggregation).toArray((err, result) => {
+            callback(err, result)
+        })
     })
-}
+};
