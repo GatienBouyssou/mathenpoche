@@ -81,7 +81,7 @@
     font-weight: bold;
 }
 
-.errorLabel {
+.error {
     color: red;
     font-weight: bold;
     display: none;

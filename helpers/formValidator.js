@@ -79,6 +79,14 @@ function checkEmail(result, userInfo) {
 }
 
 module.exports.validateProfile = (req, res, next) => {
+    if (!req.session.userInfo || !req.session.userInfo.isAdmin) {
+        res.message = "Page not found";
+        res.error = {};
+        res.error.status = 404;
+        res.error.stack = "This page does not exist";
+        res.render('error', res);
+        return;
+    }
     generalModel.findWithQuery("user", {"email":req.body.email}, (err, result) => {
         const errors = validationResult(req);
         let emailIsValid = checkEmail(result, req.session.userInfo);
@@ -100,4 +108,72 @@ module.exports.escapeAllField = () => {
     return [
         check('*').escape()
     ]
+};
+
+// escape add ELement
+
+function checkChapterValidity(body) {
+    if (!body.title || body.title === "")
+        throw Error("The title can't be empty.");
+    console.log(body.position);
+    body.position = parseInt(body.position);
+    console.log(body.position);
+    if (body.position && typeof body.position !== "number")
+        throw Error("The position should have a numeric value");
+    return true;
+}
+
+function checkLessonValidity(body) {
+
+}
+
+function checkExerciseValidity(body) {
+
+}
+
+module.exports.validationCreateElement = () => {
+    return [
+        check('*').escape(),
+        check('levelName').custom((value, {req})=> {
+            if (value === "Troisieme" || value === "Quatrieme" || value === "Cinquieme" || value === "Sixieme")
+                return true;
+            else
+                throw Error("Sorry, this level doesn't exist.");
+        }),
+
+        check('typeElement').custom((value, { req })=> {
+            switch (value) {
+                case "chapter":
+                    return checkChapterValidity(req.body);
+                case "lesson":
+                    return checkLessonValidity(req.body);
+                case "exercise":
+                    return checkExerciseValidity(req.body);
+                default :
+                    throw Error("Sorry, this element type doesn't exist.")
+            }
+        })
+    ]
+};
+
+module.exports.validateElement = (req, res, next) => {
+    if (!req.session.userInfo || !req.session.userInfo.isAdmin) {
+        res.message = "Page not found";
+        res.error = {};
+        res.error.status = 404;
+        res.error.stack = "This page does not exist";
+        res.render('error', res);
+        return;
+    }
+    const errors = validationResult(req);
+    console.log(errors);
+    if (errors.isEmpty()) {
+        return next();
+    }
+
+    let extractedErrors = {};
+    errors.array().map(err => extractedErrors[err.param] = err.msg);
+
+    res.status(400);
+    res.send({message: "Invalid input", errors:extractedErrors})
 };

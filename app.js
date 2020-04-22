@@ -5,7 +5,6 @@ let path = require('path');
 let http = require('http');
 let helmet = require('helmet');
 let cookieParser = require('cookie-parser');
-
 let app = express();
 
 // view engine setup

@@ -41,7 +41,7 @@ module.exports.addObjectToTable = function(table, id, fieldToModify, object, cal
     let query = {};
     query[fieldToModify] = object;
     dbConnection.getConnection((db) => {
-        db.collection(table).updateOne({_id:new ObjectID(id)},{$push : query}, (err, result) => {callback(err, result)})
+        db.collection(table).updateOne({_id:id},{$push : query}, (err, result) => {callback(err, result)})
     })
 };
 
@@ -65,13 +65,7 @@ module.exports.findWithQuery = function (table, query, callback) {
     })
 };
 
-module.exports.findWithQuery = function (table, query, callback) {
-    dbConnection.getConnection((db) => {
-        db.collection(table).find(query).toArray((err, result)=>{callback(err, result)})
-    })
-};
-
-module.exports.findOneElementOfArray = function (table, userId, filter, callback) {
+    module.exports.findOneElementOfArrayWithAggregation = function (table, userId, filter, callback) {
     dbConnection.getConnection((db) => {
         db.collection(table).aggregate([
             {$match: {_id:userId}},

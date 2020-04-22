@@ -3,7 +3,7 @@ let levelController = require("../controllers/levelController");
 let authController = require("../controllers/authenticationController");
 let adminController = require("../controllers/adminController");
 let profileController = require("../controllers/profileController");
-const { escapeAllField, userValidationRules, validate, userValidationRulesProfile, validateProfile} = require('../helpers/formValidator')
+const validator = require('../helpers/formValidator');
 
 module.exports = function (app) {
 
@@ -24,16 +24,20 @@ module.exports = function (app) {
 
     // Pages only for logged user
     app.get("/profile", profileController.profilePage);
-    app.post("/profile", userValidationRulesProfile(), validateProfile, profileController.modifyProfile);
+    app.post("/profile", validator.userValidationRulesProfile(), validator.validateProfile, profileController.modifyProfile);
 
-    app.get('/addChapter', (req, res) => {adminController.add(req, res, 'chapter')});
-    app.get('/addLesson', (req, res) => {adminController.add(req, res, 'lesson')});
-    app.get('/addExercise', (req, res) => {adminController.add(req, res, 'exercise')});
+    app.get('/add', adminController.add);
+
+    app.post('/create', validator.validationCreateElement(), validator.validateElement, adminController.create);
 
     // post routes
-    app.post("/signIn", escapeAllField(), authController.signIn);
-    app.post("/signUp", userValidationRules(), validate, authController.signUp);
+    app.post("/signIn", validator.escapeAllField(), authController.signIn);
+    app.post("/signUp", validator.userValidationRules(), validator.validate, authController.signUp);
 
-    app.get("*", (req, res) => {res.render('error', res)});
+    app.get("*", (req, res) => {
+        res.message = "This page cannot be found.";
+        res.error = {status:'Error 404', stack: "It seems that this page does not exist try another url."};
+        res.render('error', res)
+    });
 };
 

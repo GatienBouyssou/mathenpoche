@@ -1,4 +1,6 @@
-module.exports.renderLevel = function renderLevel(req, res, levelName) {
+let levelModel = require('../models/levelModel');
+
+module.exports.renderLevel = function(req, res, levelName) {
     res.levelName = levelName;
     res.title = levelName;
     if (req.session.userInfo) {
@@ -7,5 +9,9 @@ module.exports.renderLevel = function renderLevel(req, res, levelName) {
             res.isAdmin = true;
         }
     }
-    res.render("level", res);
+    levelModel.getChapters(levelName, (err, result) => {
+        res.chapters = result[0].chapter;
+        res.render("level", res);
+    });
 };
+

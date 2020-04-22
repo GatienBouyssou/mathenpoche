@@ -4,11 +4,11 @@
 
 <header class="titleSection row">
     <div class="col s12 m8 l4">
-        {{#ifCond this.levelName '===' 'Troisieme'}}
+        {{#ifCond levelName '===' 'Troisieme'}}
             <h4 class="title">3e - Lessons and Exercises</h4>
-        {{else ifCond this.levelName '===' 'Quatrieme'}}
+        {{else ifCond levelName '===' 'Quatrieme'}}
             <h4 class="title">4e - Lessons and Exercises</h4>
-        {{else ifCond this.levelName '===' 'Cinquieme'}}
+        {{else ifCond levelName '===' 'Cinquieme'}}
             <h4 class="title">5e - Lessons and Exercises</h4>
         {{else}}
             <h4 class="title">6e - Lessons and Exercises</h4>
@@ -23,3 +23,5 @@
 <div class="divider"></div>
 
 {{> collapsible}}
+
+

@@ -1,0 +1,131 @@
+<section class="section chapter">
+    <div class="row"><h5 class="col s12">Create a new chapter.</h5></div>
+    <div class="row"><span class="col s12">The chapter will be inserted above :</span></div>
+    <div class="row">
+        <div class="col s12">
+            <ul class="collection selectionCollection">
+                {{#each chapters}}
+                    <li id="{{@index}}" class="collection-item truncate">Chapter {{@index}} : {{this.title}}</li>
+                {{/each}}
+                <li id="" class="collection-item truncate active">Add the chapter at the end of the list.</li>
+            </ul>
+        </div>
+    </div>
+    <div class="row">
+        <form action="admin/3rdLevel.html" method="post" class="col s12">
+            <div class="row">
+                <div class="col s12 m2 valign-wrapper customValign">
+                    <span>Chapter : </span>
+                </div>
+                <div class="input-field col s12 m6">
+                    <input placeholder="Title" id="chapterTitle" type="text" name="title" class="validate" required>
+                    <label for="chapterTitle">Title</label>
+                </div>
+            </div>
+            <div class="row">
+                <input type="submit" value="Create the chapter" class="marginLeftAuto btn waves-effect waves-teal">
+            </div>
+        </form>
+    </div>
+</section>
+
+<section class="section lesson">
+    <div class="row"><h5 class="col s12">Create a new lesson.</h5></div>
+    {{#if chapters}}
+        <div class="row"><span class="col s12">The lesson will be inserted above (Chapter 1 Lesson 1 are selected by default):</span></div>
+        <div class="row">
+            <ul class="collapsible selectionCollection">
+                {{#each chapters}}
+                    <li>
+                        <div id="{{this._id}}" class="collapsible-header">Chapter {{@index}} : {{this.title}}<i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
+                        <div class="collapsible-body">
+                            <ul class="collection">
+                                {{#each this.lessons}}
+                                    <li id="{{this._id}}" class="collection-item">Lesson {{@index}} : {{this.title}}</li>
+                                {{/each}}
+                                <li class="collection-item active">Add the lesson at the end of the list</li>
+                            </ul>
+                        </div>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+        <div class="row">
+            <form class="col s12" method="post" action="admin/3rdLevel.html" enctype="multipart/form-data" >
+                <div class="row">
+                    <div class="input-field col s12 m6">
+                        <input placeholder="Title" id="lessonTitle" name="title" type="text" class="validate" required>
+                        <label for="lessonTitle">Lesson title</label>
+                    </div>
+                </div>
+                <div class="row"><span class="col s12">Select the pdf related to the lessons.</span></div>
+                <section id="uploadForm"  class="uploadingBox matchParent leaveSpaceTop marginLeftAuto">
+                    <div id="fileUploaderDiv" class="greyDashedBorder">
+                        <input id="fileUploader" class="matchParent" name="file" type="file" ><br>
+                    </div>
+
+                    <div id="informationLabels" class="informationUpload">
+                        <span class="fileSelected center-align"></span>
+                        <span id="duringUpload" class="informationLabel">Drop to upload</span>
+                        <span id="errorUpload" class="error">An error happened during the import. Please import a pdf file.</span><br>
+                        <label id="labelUpload"  for="fileUploader"><strong class="pointer">Choose a file</strong><span class="box__dragndrop"> or drag it here</span>.</label>
+                    </div>
+                </section>
+                <div class="row">
+                    <input id="changeBtn" type="submit" value="Create the lesson" class="btn waves-effect waves-teal">
+                </div>
+            </form>
+        </div>
+    {{else}}
+        <span class="errorLabel">You can't add lesson without adding a chapter</span>
+    {{/if}}
+
+
+</section>
+
+<section class="section exercise">
+    <div class="row"><h5 class="col s12">Create a new exercise.</h5></div>
+    {{#if chapters}}
+        <div class="row"><span class="col s12">The exercise will be inserted above (Chapter 1 Lesson 1 are selected by default):</span></div>
+        <div class="row">
+            <ul class="collapsible selectionCollection">
+                {{#each chapters}}
+                    <li>
+                        <div id="{{this._id}}" class="collapsible-header">Chapter {{@index}} : {{this.title}}<i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
+                        <div class="collapsible-body">
+                            <ul class="collection">
+                                {{#each this.lessons}}
+                                    <li>
+                                        <div id="{{this._id}}" class="collapsible-header">Lesson {{@index}} : {{this.title}}<i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
+                                        <div class="collapsible-body">
+                                            <ul class="collection">
+                                                {{#each this.exercises}}
+                                                    <li id="{{this._id}}" class="collection-item"> Exercise {{@index}} : {{this.title}}</li>
+                                                {{/each}}
+                                                <li class="collection-item active">Add the exercise at the end of the list</li>
+                                            </ul>
+                                        </div>
+                                    </li>
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </li>
+                {{/each}}
+            </ul>
+
+        </div>
+        <form class="col s12" method="post" action="admin/3rdLevel.html">
+            <div class="row">
+                <div class="input-field col s12 m6">
+                    <input placeholder="Title" id="exerciseTitle" name="title" type="text" class="validate" required>
+                    <label for="exerciseTitle">Lesson title</label>
+                </div>
+            </div>
+            <div class="row">
+                <input type="submit" value="Create the exercise" class="btn waves-effect waves-teal">
+            </div>
+        </form>
+    {{else}}
+        <span class="errorLabel">You can't add exercises without adding a chapter</span>
+    {{/if}}
+</section>

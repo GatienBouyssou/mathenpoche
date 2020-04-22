@@ -1,40 +1,46 @@
 {{#content "links"}}
     <link rel="stylesheet" type="text/css" href="/stylesheets/Components/collapsible.css">
 {{/content}}
-{{#if this.userInfo.isAdmin}}
-    <a class="waves-effect waves-light addingLink" href="/addChapter"><i class="material-icons left">add_circle_outline</i>Add ...</a>
+{{#if userInfo.isAdmin}}
+    <a class="waves-effect waves-light addingLink" href="/add?type=chapter&levelName={{levelName}}"><i class="material-icons left">add_circle_outline</i>Add ...</a>
 {{/if}}
 <section class="section">
+    {{#unless chapters}}
+        <div class="row">
+            <span class="errorLabel">No chapter for this level.</span>
+        </div>
+    {{/unless}}
     <ul class="collapsible col s12">
-        <li>
-            <div class="collapsible-header col s12">Chapter 1<i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
-            <div class="collapsible-body col s12">
-                <ul class="collapsible">
-                    <li>
-                        <div class="collapsible-header"><a class="linkItemList" href="">Lesson 1</a><i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
-                        <div class="collapsible-body">
-                            <ul class="collapsible">
-                                <li>
-                                    <div class="collapsible-header"><a class="linkItemList" href="">Exercise 1</a></div>
-                                </li>
-                                <li>
-                                    <div class="collapsible-header"><a class="linkItemList" href="">Exercise 2</a></div>
-                                </li>
-                                <li>
-                                    <div class="collapsible-header"><a class="linkItemList" href="">Exercise 3</a></div>
-                                </li>
-                                {{#if this.userInfo.isAdmin}}
-                                    <li><a class="waves-effect waves-light addingLink" href="/addExercise"><i class="material-icons left">add_circle_outline</i>Add exercise</a></li>
-                                {{/if}}
-                            </ul>
-                        </div>
-                    </li>
-                    {{#if this.userInfo.isAdmin}}
-                        <li><a class="waves-effect waves-light addingLink" href="/addLesson"><i class="material-icons left">add_circle_outline</i>Add lesson</a></li>
+        {{#each chapters}}
+            <li>
+                <div id="{{this._id}}" class="collapsible-header col s12">Chapter {{@index}} : {{this.title}}<i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
+                <div class="collapsible-body col s12">
+                    {{#unless this.lessons}}
+                        <span class="errorLabel">Nothing to show for now.</span><br>
+                    {{/unless}}
+                    {{#each this.lessons}}
+                        <ul class="collapsible">
+                            <li>
+                                <div id="{{this._id}}" class="collapsible-header">Lesson {{@index}} : {{this.title}}<i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
+                                <div class="collapsible-body">
+                                    <ul class="collection">
+                                        {{#each this.exercises}}
+                                            <li><a class="linkItemList" href="">Exercise {{@index}} : {{this.title}}</a></li>
+                                        {{/each}}
+                                        {{#if this.userInfo.isAdmin}}
+                                            <li><a class="waves-effect waves-light addingLink" href="/add?type=exercise&levelName={{this.levelName}}"><i class="material-icons left">add_circle_outline</i>Add exercise</a></li>
+                                        {{/if}}
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    {{/each}}
+                    {{#if ../userInfo.isAdmin}}
+                        <a class="waves-effect waves-light addingLink" href="/add?type=lesson&levelName={{../levelName}}"><i class="material-icons left">add_circle_outline</i>Add lesson</a>
                     {{/if}}
-                </ul>
-            </div>
-        </li>
+                </div>
+            </li>
+        {{/each}}
     </ul>
 </section>
 
