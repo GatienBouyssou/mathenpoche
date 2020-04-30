@@ -13,7 +13,7 @@ module.exports.insertManyDocument = function (table, objects, callback) {
     })
 };
 
-module.exports.deleteOneDocument = function (table, object, callback) {
+    module.exports.deleteOneDocument = function (table, object, callback) {
     dbConnection.getConnection((db) => {
         db.collection(table).deleteOne(object, (err, result)=>{callback(err, result)})
     })
@@ -45,11 +45,19 @@ module.exports.addObjectToTable = function(table, id, fieldToModify, object, cal
     })
 };
 
-module.exports.removeObjectToTable = function(table, id, fieldToModify, object, callback) {
+module.exports.removeObjectFromTable = function(table, id, fieldToModify, object, callback) {
     let query = {};
     query[fieldToModify] = object;
     dbConnection.getConnection((db) => {
-        db.collection(table).updateOne({_id:new ObjectID(id)},{$pull : query}, (err, result) => {callback(err, result)})
+        db.collection(table).updateMany({_id:new ObjectID(id)},{$pull : query}, (err, result) => {callback(err, result)})
+    })
+};
+
+module.exports.removeObjectFromTables = function(table, filter, fieldToModify, object, callback) {
+    let query = {};
+    query[fieldToModify] = object;
+    dbConnection.getConnection((db) => {
+        db.collection(table).updateOne(filter,{$pull : query}, (err, result) => {callback(err, result)})
     })
 };
 
@@ -62,6 +70,12 @@ module.exports.findDocumentById = function (table, objectId, callback) {
 module.exports.findWithQuery = function (table, query, callback) {
     dbConnection.getConnection((db) => {
         db.collection(table).find(query).toArray((err, result)=>{callback(err, result)})
+    })
+};
+
+module.exports.findSortAndLimitWithQuery = function(table, findQuery, sortQuery, limit, callback) {
+    dbConnection.getConnection((db) => {
+        db.collection(table).find(findQuery).sort(sortQuery).limit(limit).toArray((err, result)=>{callback(err, result)})
     })
 };
 

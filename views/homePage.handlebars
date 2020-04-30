@@ -2,7 +2,7 @@
     <link rel="stylesheet" type="text/css" href="/stylesheets/Components/newItemList.css">
 {{/content}}
     <header class="titleSection row s12 m12">
-        <h3 class="title">Lessons and exercises updated recently</h3>
+        <h3 class="title">Lessons updated recently</h3>
         <div class="divider"></div>
     </header>
     {{#if isAdmin}}
@@ -10,14 +10,9 @@
     {{/if}}
     <section class="listNewContent section">
         <ul>
-            <li class="row s12 m12"><a href=""><i class="material-icons left">chevron_right</i><span>6e - Lesson 5 - A Title for the lesson</span></a></li>
-            <li class="row s12 m12"><a href=""><i class="material-icons left">chevron_right</i><span>6e - Lesson 5 - A Title for the lesson</span></a></li>
-            <li class="row s12 m12"><a href=""><i class="material-icons left">chevron_right</i><span>6e - Lesson 5 - A Title for the lesson</span></a></li>
-            <li class="row s12 m12"><a href=""><i class="material-icons left">chevron_right</i><span>6e - Lesson 5 - A Title for the lesson</span></a></li>
-            <li class="row s12 m12"><a href=""><i class="material-icons left">chevron_right</i><span>6e - Lesson 5 - A Title for the lesson</span></a></li>
-            <li class="row s12 m12"><a href=""><i class="material-icons left">chevron_right</i><span>6e - Lesson 5 - A Title for the lesson</span></a></li>
-            <li class="row s12 m12"><a href=""><i class="material-icons left">chevron_right</i><span>6e - Lesson 5 - A Title for the lesson</span></a></li>
-            <li class="row s12 m12"><a href=""><i class="material-icons left">chevron_right</i><span>6e - Lesson 5 - A Title for the lesson</span></a></li>
+            {{#each lessons}}
+                <li class="row s12 m12"><a href="/lesson/{{this._id}}" target="_blank"><i class="material-icons left">chevron_right</i><span>{{this.levelName}} - Lesson - {{this.title}}</span></a></li>
+            {{/each}}
         </ul>
 
     </section>

@@ -23,7 +23,9 @@
                 </div>
             </div>
             <div class="row">
-                <input type="submit" value="Create the chapter" class="marginLeftAuto btn waves-effect waves-teal">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                    <i class="material-icons right">send</i>
+                </button>
             </div>
         </form>
     </div>
@@ -32,7 +34,7 @@
 <section class="section lesson">
     <div class="row"><h5 class="col s12">Create a new lesson.</h5></div>
     {{#if chapters}}
-        <div class="row"><span class="col s12">The lesson will be inserted above (Chapter 1 Lesson 1 are selected by default):</span></div>
+        <div class="row"><span class="col s12">Select the chapter owning the lesson. The lesson will be inserted above the lesson selected or in last position by default:</span></div>
         <div class="row">
             <ul class="collapsible selectionCollection">
                 {{#each chapters}}
@@ -41,7 +43,9 @@
                         <div class="collapsible-body">
                             <ul class="collection">
                                 {{#each this.lessons}}
-                                    <li id="{{this._id}}" class="collection-item">Lesson {{@index}} : {{this.title}}</li>
+                                    {{#if this._id}}
+                                        <li id="{{this._id}}" class="collection-item">Lesson {{@index}} : {{this.title}}</li>
+                                    {{/if}}
                                 {{/each}}
                                 <li class="collection-item active">Add the lesson at the end of the list</li>
                             </ul>
@@ -72,7 +76,9 @@
                     </div>
                 </section>
                 <div class="row">
-                    <input id="changeBtn" type="submit" value="Create the lesson" class="btn waves-effect waves-teal">
+                    <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                        <i class="material-icons right">send</i>
+                    </button>
                 </div>
             </form>
         </div>
@@ -122,7 +128,9 @@
                 </div>
             </div>
             <div class="row">
-                <input type="submit" value="Create the exercise" class="btn waves-effect waves-teal">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                    <i class="material-icons right">send</i>
+                </button>
             </div>
         </form>
     {{else}}

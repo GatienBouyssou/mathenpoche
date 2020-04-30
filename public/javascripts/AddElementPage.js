@@ -1,4 +1,16 @@
 const activeClass = "active";
+const preloader = "\n" +
+    "  <div class=\"preloader-wrapper big active\">\n" +
+    "    <div class=\"spinner-layer spinner-blue-only\">\n" +
+    "      <div class=\"circle-clipper left\">\n" +
+    "        <div class=\"circle\"></div>\n" +
+    "      </div><div class=\"gap-patch\">\n" +
+    "        <div class=\"circle\"></div>\n" +
+    "      </div><div class=\"circle-clipper right\">\n" +
+    "        <div class=\"circle\"></div>\n" +
+    "      </div>\n" +
+    "    </div>\n" +
+    "  </div>";
 
 function changeElementToAdd() {
     $("#selectTypeElement option:selected").each(function () {
@@ -7,19 +19,71 @@ function changeElementToAdd() {
     })
 }
 
-function buildBody(currentTarget) {
-    let body = {};
-    $(currentTarget.form).serializeArray().forEach(function (element) {
-        body[element.name] = element.value;
+// create the body of the request depending on the type of element to add
+function buildBody(form, feedbackDiv) {
+    let formData = new FormData();
+    $(form).serializeArray().forEach(function (element) {
+        formData.append(element.name, element.value);
     });
-    body.levelName = $("#selectLevel option:selected")[0].value;
-    body.typeElement = $("#selectTypeElement option:selected")[0].value;
-    body.position = $("." + body.typeElement + " .selectionCollection .active")[0].id;
-    return body;
+
+    formData.append("levelName", $("#selectLevel option:selected")[0].value);
+    formData.append("typeElement", $("#selectTypeElement option:selected")[0].value);
+
+    switch (formData.get("typeElement")) {
+        case "chapter":
+            formData.append("position", $("." + formData.get("typeElement") + " .selectionCollection .active")[0].id);
+            break;
+        case "lesson":
+            let chapterSelected = $("." + formData.get("typeElement") + " .selectionCollection").children(".active");
+            if (chapterSelected.length === 0) {
+                feedbackDiv.append("<li class='errorLabel'>You need to select a chapter</li>");
+                return null;
+            }
+            formData.append("chapterId", chapterSelected[0].childNodes[1].id);
+
+            let fileInput = $("#fileUploader")[0];
+            if (fileInput.files[0])
+                formData.append("lessonFile", fileInput.files[0]);
+            else {
+                feedbackDiv.append("<li class='errorLabel'>You need to select a file</li>");
+                return null;
+            }
+
+            try {
+                formData.append("position", chapterSelected.find(".collapsible-body .active")[0].id);
+            } catch (e) {
+                formData.append("position", "");
+            }
+            break;
+        case "exercise":
+            break;
+    }
+    return formData;
 }
 
 $(document).ready(() => {
     changeElementToAdd();
+    $("#selectLevel").change(() => {
+        let $feedBackList = $(".feedBackList");
+        $feedBackList.empty();
+        $(".addElementPart").html(preloader);
+        $.ajax({
+            type:"GET",
+            url: "/levelInfo/"+$("#selectLevel option:selected")[0].value,
+            processData: false,
+            contentType: false
+        }).done(function (result) {
+            $(".addElementPart").html(result);
+            changeElementToAdd();
+            materializeInit();
+        }).fail(function (error) {
+            let errors = error.responseJSON.errors;
+            for(let propertyName in errors) {
+                $feedBackList.append("<li class='errorLabel'>"+ errors[propertyName] + "</li>");
+            }
+        })
+    });
+
     $("#selectTypeElement").change(() => {
        changeElementToAdd()
     });
@@ -28,33 +92,41 @@ $(document).ready(() => {
         e.currentTarget.classList.add(activeClass);
     });
 
-    $("input[type=submit]").click(function (e) {
+    $("body").on("click", ".btn", function (e) {
         e.preventDefault();
-        let body = buildBody($(this)[0]);
+        console.log($(this))
+        sendRequestCreateElement($(this)[0].form, $(this))
+    });
 
-        let submitButton = $(this).parent();
-        submitButton.addClass("disabled");
-
+    function sendRequestCreateElement(form, submitButton) {
         let $feedBackList = $(".feedBackList");
         $feedBackList.empty();
 
-        $.ajax({
-            type:"POST",
-            url: "/create",
-            data: body
-        }).done(function (result) {
-            submitButton.removeClass("disabled");
-            $(".addElementPart").html(result);
-            changeElementToAdd();
-        }).fail(function (error) {
-            submitButton.removeClass("disabled");
-            let errors = error.responseJSON.errors;
-            for(let propertyName in errors) {
-                $feedBackList.append("<li class='errorLabel'>"+ errors[propertyName] + "</li>");
-            }
-        })
+        let body = buildBody(form, $feedBackList);
+        if (body) {
+            submitButton.addClass("disabled");
+            $.ajax({
+                type:"POST",
+                url: "/create",
+                data: body,
+                processData: false,
+                contentType: false
+            }).done(function (result) {
+                submitButton.removeClass("disabled");
+                $(".addElementPart").html(result);
+                changeElementToAdd();
+                materializeInit();
+            }).fail(function (error) {
+                console.log(error)
+                submitButton.removeClass("disabled");
+                let errors = error.responseJSON.errors;
+                for(let propertyName in errors) {
+                    $feedBackList.append("<li class='errorLabel'>"+ errors[propertyName] + "</li>");
+                }
+            })
+        }
 
-    });
-
+    }
 });
+
 

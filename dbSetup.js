@@ -31,5 +31,3 @@ DataBase.initDB = function(callback) {
 };
 module.exports = DataBase;
 
-
-

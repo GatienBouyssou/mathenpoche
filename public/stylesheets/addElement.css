@@ -2,6 +2,11 @@
     height: 80px;
 }
 
+.active .collapsible-header{
+    background-color: #26a69a;
+    color: white;
+}
+
 .selectionCollection {
     max-height: 200px;
     overflow: scroll;

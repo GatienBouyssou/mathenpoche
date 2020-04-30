@@ -1,6 +1,7 @@
 let userModel = require("../models/userModel");
 let genericModel = require('../models/genericMongoDbModel');
 let cryptoHelper = require('../helpers/cryptoHelper');
+let helpers = require('../helpers/helpers');
 
 module.exports.profilePage = function(req, res) {
     if (req.session.userInfo) {
@@ -10,11 +11,7 @@ module.exports.profilePage = function(req, res) {
             res.render('profilePage', res);
         });
     } else {
-        res.message = "Page not found";
-        res.error = {};
-        res.error.status = 404;
-        res.error.stack = "This page does not exist";
-        res.render('error', res)
+        helpers.pageNotFound(res)
     }
 };
 
@@ -29,11 +26,7 @@ module.exports.modifyProfile = function (req, res) {
             res.send(response);
         })
     } else {
-        res.message = "Page not found";
-        res.error = {};
-        res.error.status = 404;
-        res.error.stack = "This page does not exist";
-        res.render('error', res)
+        helpers.pageNotFound(res)
     }
 };
 

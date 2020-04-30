@@ -1,3 +1,6 @@
+let genericModel = require('../models/genericMongoDbModel');
+let dbNames = require('../models/dbNames');
+
 module.exports.homePage = function (req, res) {
     res.title = "Home";
     if (req.session.userInfo) {
@@ -5,8 +8,11 @@ module.exports.homePage = function (req, res) {
         if (req.session.isAdmin) {
             res.isAdmin = true;
         }
-        res.render('homePage', res);
-    } else {
-        res.render('homePage', res);
     }
+
+    genericModel.findSortAndLimitWithQuery(dbNames.lessonsDB, {}, {date:-1}, 10, (err, result) => {
+        if (err) console.log(err)
+        res.lessons = result;
+        res.render('homePage', res);
+    });
 };

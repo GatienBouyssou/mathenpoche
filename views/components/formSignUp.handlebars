@@ -44,6 +44,8 @@
 </div>
 <div class="row">
     <div class="input-field col s12">
-        <input id="submitButtonSignup" type="submit" class="btn waves-effect waves-teal" value="{{#if isConnecting}}Sign up{{else}}Change your profile{{/if}}">
+        <button class="btn waves-effect waves-light" type="submit" name="action">{{#if isConnecting}}Sign up{{else}}Change your profile{{/if}}
+            <i class="material-icons right">send</i>
+        </button>
     </div>
 </div>

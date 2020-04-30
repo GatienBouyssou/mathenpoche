@@ -4,6 +4,7 @@ let authController = require("../controllers/authenticationController");
 let adminController = require("../controllers/adminController");
 let profileController = require("../controllers/profileController");
 const validator = require('../helpers/formValidator');
+const validatorFormData = require('../helpers/validatorFormData');
 
 module.exports = function (app) {
 
@@ -22,21 +23,27 @@ module.exports = function (app) {
     app.get("/connection", authController.connectionPage);
     app.get("/logout", authController.logout);
 
+    app.get("/lesson/:lessonId", levelController.getLesson);
     // Pages only for logged user
     app.get("/profile", profileController.profilePage);
     app.post("/profile", validator.userValidationRulesProfile(), validator.validateProfile, profileController.modifyProfile);
 
+    // Pages for admin only
     app.get('/add', adminController.add);
 
-    app.post('/create', validator.validationCreateElement(), validator.validateElement, adminController.create);
+    app.post('/create', validatorFormData.validateElement, adminController.create);
+    app.get('/edit/:elementType/:elementId');
+    app.get('/levelInfo/:levelName', adminController.levelInfo);
 
+    app.delete('/:elementType/:elementId', adminController.deleteElement);
     // post routes
     app.post("/signIn", validator.escapeAllField(), authController.signIn);
     app.post("/signUp", validator.userValidationRules(), validator.validate, authController.signUp);
 
     app.get("*", (req, res) => {
         res.message = "This page cannot be found.";
-        res.error = {status:'Error 404', stack: "It seems that this page does not exist try another url."};
+        res.error = {status:'Error 404', stack: "It seems that page does not exist try another url."};
+        res.status(404);
         res.render('error', res)
     });
 };
