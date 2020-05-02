@@ -10,7 +10,7 @@ $(document).ready(function () {
     $(".deleteIcon").click(function (e) {
         e.preventDefault();
         e.stopPropagation();
-        let chapterItem = $(this).parents("li");
+        let chapterItem = $($(this).parents("li")[0]);
         chapterItem.hide();
         $.ajax({
             type: "DELETE",

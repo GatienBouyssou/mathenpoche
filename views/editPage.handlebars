@@ -1,0 +1,29 @@
+{{#content "links"}}
+    <link rel="stylesheet" type="text/css" href="/stylesheets/Components/uploadingBox.css">
+{{/content}}
+
+<header class="titleSection row s12 m12">
+    <h3 class="title">Edit your {{elementType}}</h3>
+    <div class="divider"></div>
+</header>
+
+<section class="feedbackSection">
+    <ul class="feedBackList">
+
+    </ul>
+</section>
+
+<section id="{{elementType}}" class="section">
+    {{#ifCond elementType '===' "chapters"}}
+        {{> chapterForm}}
+    {{else ifCond elementType '===' "lessons"}}
+        {{> lessonForm}}
+    {{else ifCond elementType '===' "exercises"}}
+        <span class="errorLabel">Not implemented yet</span>
+    {{/ifCond}}
+</section>
+
+{{#content "scripts"}}
+    <script type="text/javascript" src="/javascripts/uploadingBox.js"></script>
+    <script type="text/javascript" src="/javascripts/editPage.js"></script>
+{{/content}}

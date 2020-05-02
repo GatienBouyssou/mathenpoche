@@ -8,11 +8,17 @@ module.exports.deleteElement = deleteElement;
 function deleteElement(params, callback) {
     async.waterfall([
       function (callback) {
-          genericModel.deleteOneDocument(params.elementType, {_id: new ObjectID(params.elementId)}, (err, result) => {
+          genericModel.findOneAndDelete(params.elementType, params.elementId, (err, result) => {
               if (err) return callback({status:500, message: "An unexpected error has happened."},null);
-              callback()
+              callback(null, result.value.path)
           })
-      },
+      }, function (path, callback) {
+            if (path) {
+                fs.unlink(path, (err) => {
+                    callback()
+                });
+            }
+        },
       function (callback) {
           let filter = {};
           let objectID = new ObjectID(params.elementId);
@@ -54,6 +60,8 @@ module.exports.deleteChapter = function (params, callback) {
 function formatChapter(body) {
     return {
         title: body.title,
+        lessons: [],
+        exercises: []
     };
 }
 

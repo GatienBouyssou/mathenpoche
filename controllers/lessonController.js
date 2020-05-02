@@ -1,5 +1,7 @@
 let chapterModel = require('../models/chapterModel');
 let lessonModel = require('../models/lessonModel');
+const dbNames = require('../models/dbNames');
+
 let async =require("async");
 let ObjectID = require("mongodb").ObjectID;
 let helpers = require('../helpers/helpers');
@@ -8,21 +10,14 @@ const fs = require('fs');
 module.exports.createLesson = function(req, res) {
     async.waterfall([
         function (callback) {
-            let oldPath = req.body.file.path;
-            let nameFile = req.session.userInfo.id + "_" + Date.now();
-            let newPath = __dirname + '/../views/lessons/' + nameFile + ".pdf";
-            fs.rename(oldPath, newPath, function (err) {
-                if (err) {
-                    callback({status: 406, errors: {message: "Couldn't upload your file."}}, null)
-                } else {
-                    req.body.path = newPath;
-                    callback();
-                }
-            });
+            helpers.moveFileToLesson(req, req.body, callback)
         },
         function (callback) {
             lessonModel.createLesson(req.body, (err, result) => {
-                if (err) return callback(err, null);
+                if (err) {
+                    fs.unlinkSync(req.path);
+                    return callback(err, null);
+                }
                 callback()
             })
         },
@@ -43,6 +38,19 @@ module.exports.createLesson = function(req, res) {
         }
 
     });
-}
+};
+
+module.exports.deleteLesson = function (req, res) {
+    req.params.parentDB = dbNames.parentLessonDB;
+    chapterModel.deleteElement(req.params, (err, result) => {
+        if (err) {
+            res.status(err.status);
+            res.send({errors: {message: err.message}})
+        } else {
+            res.status(200);
+            res.send("Item deleted.")
+        }
+    });
+};
 
 

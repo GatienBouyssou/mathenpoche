@@ -1,4 +1,7 @@
 let chapterModel = require('../models/chapterModel');
+let genericModel = require('../models/genericMongoDbModel');
+let ObjectID = require("mongodb").ObjectID;
+
 let helpers = require('../helpers/helpers');
 const lessonController = require('./lessonController');
 const chapterController = require('./chapterController');
@@ -58,38 +61,51 @@ module.exports.create = function(req, res) {
 };
 
 module.exports.deleteElement = function(req, res) {
-    if (!req.session.userInfo && !req.session.userInfo.isAdmin) return helpers.pageNotFound(res);
+    if (!req.session.userInfo|| !req.session.userInfo.isAdmin) return helpers.pageNotFound(res);
     if (helpers.isStringEmpty(req.params.elementId)) return helpers.pageNotFound(res);
     let elementType = req.params.elementType;
     switch (elementType) {
         case dbNames.chaptersDB:
-            req.params.parentDB = dbNames.parentChapterDB;
-            chapterModel.deleteChapter(req.params, (err, result) => {
-                if (err) {
-                    res.status(err.status);
-                    res.send({errors: {message: err.message}})
-                } else {
-                    res.status(200);
-                    res.send("Item deleted.")
-                }
-            });
+            chapterController.deleteChapter(req, res);
             break;
         case dbNames.lessonsDB:
-            req.params.parentDB = dbNames.parentLessonDB;
-            chapterModel.deleteElement(req.params, (err, result) => {
-                if (err) {
-                    res.status(err.status);
-                    res.send({errors: {message: err.message}})
-                } else {
-                    res.status(200);
-                    res.send("Item deleted.")
-                }
-            });
+            lessonController.deleteLesson(req, res);
             break;
         case dbNames.exercisesDB:
             req.params.parentDB = dbNames.parentExerciseDB;
+            res.status(501);
+            res.send({errors: {message: "Not implemented yet."}});
             break;
         default:
             return helpers.pageNotFound(res);
     }
+};
+
+module.exports.getEditPage = function (req, res) {
+    if (!req.session.userInfo || !req.session.userInfo.isAdmin) return helpers.pageNotFound(res);
+    if (helpers.isStringEmpty(req.params.elementId)) return helpers.pageNotFound(res);
+    let elementType = req.params.elementType;
+    if (elementType !== dbNames.chaptersDB && elementType !== dbNames.lessonsDB && elementType !== dbNames.exercisesDB)
+        return helpers.pageNotFound(res);
+
+    genericModel.findDocumentById(elementType, req.params.elementId, (err, result) => {
+        if (err || !result) return helpers.pageNotFound(res);
+        res.title = "Edit";
+        res.elementType = elementType;
+        res.levelName = req.params.levelName;
+        res.element = result;
+        res.render('editPage', res)
+    })
+};
+
+module.exports.editElement = function (req, res) {
+    genericModel.findOneAndModify(req.body.table, req.body.id, {$set:req.body.query}, (err, result) => {
+        if (err) {
+            if (req.body.query.path) fs.unlinkSync(req.body.query.path);
+            res.status(err.status);
+            return res.send({errors: {message: "An unexpected error has occurred"}})
+        }
+        if (result.value.path && req.body.query.path) fs.unlinkSync(req.body.query.path);
+        res.send("/" + req.body.level)
+    })
 };

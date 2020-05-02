@@ -1,0 +1,29 @@
+<div class="row">
+    <form class="col s12" method="post" action="admin/3rdLevel.html" enctype="multipart/form-data" >
+        <div class="row">
+            <div class="input-field col s12 m6">
+                <input placeholder="Title" id="lessonTitle" name="title" type="text" class="validate" value="{{element.title}}" required>
+                <label for="lessonTitle">Lesson title</label>
+            </div>
+        </div>
+        <div class="row"><span class="col s12">Select the pdf related to the lessons.</span></div>
+        <section id="uploadForm"  class="uploadingBox matchParent leaveSpaceTop marginLeftAuto">
+            <div id="fileUploaderDiv" class="greyDashedBorder">
+                <input id="fileUploader" class="matchParent" name="file" type="file" ><br>
+            </div>
+
+            <div id="informationLabels" class="informationUpload">
+                <span class="fileSelected center-align"></span>
+                <span id="duringUpload" class="informationLabel">Drop to upload</span>
+                <span id="errorUpload" class="error">An error happened during the import. Please import a pdf file.</span><br>
+                <label id="labelUpload"  for="fileUploader"><strong class="pointer">Choose a file</strong><span class="box__dragndrop"> or drag it here</span>.</label>
+            </div>
+        </section>
+        <div class="row">
+            <button class="btn waves-effect waves-light" type="submit" name="action" data-type="{{elementType}}" data-level="{{levelName}}" data-id="{{element._id}}">Submit
+                <i class="material-icons right">send</i>
+            </button>
+        </div>
+    </form>
+</div>
+

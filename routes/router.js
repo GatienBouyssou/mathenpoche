@@ -32,7 +32,8 @@ module.exports = function (app) {
     app.get('/add', adminController.add);
 
     app.post('/create', validatorFormData.validateElement, adminController.create);
-    app.get('/edit/:elementType/:elementId');
+    app.get('/edit/:levelName/:elementType/:elementId', adminController.getEditPage);
+    app.put('/edit', validatorFormData.validateEdit, adminController.editElement);
     app.get('/levelInfo/:levelName', adminController.levelInfo);
 
     app.delete('/:elementType/:elementId', adminController.deleteElement);

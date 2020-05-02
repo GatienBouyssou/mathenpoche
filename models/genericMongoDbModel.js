@@ -104,3 +104,15 @@ module.exports.customAggregation = function(table, aggregation, callback) {
         })
     })
 };
+
+module.exports.findOneAndDelete = function (table, id, callback) {
+    dbConnection.getConnection((db) => {
+        db.collection(table).findOneAndDelete({_id: new ObjectID(id)}, (err, result) => {callback(err, result)})
+    })
+};
+
+module.exports.findOneAndModify = function (table, id, queryModify,callback) {
+    dbConnection.getConnection((db) => {
+        db.collection(table).findOneAndUpdate({_id: new ObjectID(id)}, queryModify,(err, result) => {callback(err, result)})
+    })
+};

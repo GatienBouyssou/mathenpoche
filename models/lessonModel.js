@@ -38,10 +38,18 @@ module.exports.createLesson = function (body, callback) {
     });
 };
 
+module.exports.findLessonWithTitle = function(lessonId, title, callback) {
+    genericModel.customAggregation(dbNames.chaptersDB, buildAggrFindLessonWithTitle(lessonId, title), (err, result) => {
+        if (err) return callback({status:500, message: "An unexpected error has happened."}, null);
+        callback(null, result)
+    })
+};
+
 function buildLesson(body) {
     let lesson = {
         title: body.title,
         path: body.path,
+        exercises: [],
         date: Date.now()
     };
     switch (body.levelName) {
@@ -83,4 +91,30 @@ function buildAggrFindLessonWith(levelName, chapterId, fieldName, fieldValue) {
     match.$match["lessonsForChapter."+fieldName] = fieldValue;
     aggreg.push(match);
     return aggreg;
+}
+
+function buildAggrFindLessonWithTitle(lessonId, title) {
+    let id = new ObjectID(lessonId);
+    return [
+        {$redact: {
+                "$cond": [
+                    {
+                        "$in": [
+                            id,
+                            "$lessons"
+                        ]
+                    },
+                    "$$KEEP",
+                    "$$PRUNE"
+                ]
+            }},
+        {$unwind:{  path:'$lessons', preserveNullAndEmptyArrays: true }},
+        {$lookup: {
+                from: 'lessons',
+                localField: 'lessons',
+                foreignField: '_id',
+                as: 'lessonsForChapter'}},
+        {$unwind:{  path:'$lessonsForChapter', preserveNullAndEmptyArrays: true } },
+        {$match: {$and:[{"lessonsForChapter.title": title}, {"lessonsForChapter._id":{$not:{$in:[id]}}}]}}
+    ]
 }

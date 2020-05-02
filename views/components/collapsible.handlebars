@@ -16,7 +16,7 @@
             <div id="{{this._id}}" class="collapsible-header col s12">Chapter {{@index}} : {{this.title}}
                 {{#if ../userInfo.isAdmin}}
                     <a href="/chapters/{{this._id}}"><i class="deleteIcon material-icons">delete</i></a>
-                    <a href="/edit/chapters/{{this._id}}"><i class="editIcon material-icons">edit</i></a>
+                    <a href="/edit/{{../levelName}}/chapters/{{this._id}}"><i class="editIcon material-icons">edit</i></a>
                 {{/if}}
                 <i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
                 <div class="collapsible-body col s12">
@@ -24,31 +24,31 @@
                         <span class="errorLabel">Nothing to show for now.</span><br>
                     {{else}}
                         {{#each this.lessons}}
-                                <ul class="collapsible">
-                                    <li>
-                                        <div id="{{this._id}}" class="collapsible-header"><a class="linkItemList" href="/lesson/{{this._id}}" target="_blank">Lesson {{@index}} : {{this.title}}</a>
-                                            {{#if ../../userInfo.isAdmin}}
-                                                <a href="/lessons/{{this._id}}"><i class="deleteIcon material-icons">delete</i></a>
-                                                <a href="/edit/lessons/{{this._id}}"><i class="editIcon material-icons">edit</i></a>
-                                            {{/if}}
-                                            <i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
-                                        <div class="collapsible-body">
-                                            <ul class="collection">
-                                                {{#unless this.exercises}}
-                                                    <span class="errorLabel">Nothing to show for now.</span><br>
-                                                {{else}}
-                                                    {{#each this.exercises}}
-                                                        <li><a class="linkItemList" href="" target="_blank">Exercise {{@index}} : {{this.title}}</a></li>
-                                                    {{/each}}
-                                                    {{#if this.userInfo.isAdmin}}
-                                                        <li><a class="waves-effect waves-light addingLink" href="/add?type=exercise&levelName={{this.levelName}}"><i class="material-icons left">add_circle_outline</i>Add exercise</a></li>
-                                                    {{/if}}
-                                                {{/unless}}
+                            <ul class="collapsible">
+                                <li>
+                                    <div id="{{this._id}}" class="collapsible-header"><a class="linkItemList" href="/lesson/{{this._id}}" target="_blank">Lesson {{@index}} : {{this.title}}</a>
+                                        {{#if ../../userInfo.isAdmin}}
+                                            <a href="/lessons/{{this._id}}"><i class="deleteIcon material-icons">delete</i></a>
+                                            <a href="/edit/{{../../levelName}}/lessons/{{this._id}}"><i class="editIcon material-icons">edit</i></a>
+                                        {{/if}}
+                                        <i class="dropDownArrow material-icons">keyboard_arrow_down</i></div>
+                                    <div class="collapsible-body">
+                                        <ul class="collection">
+                                            {{#unless this.exercises}}
+                                                <span class="errorLabel">Nothing to show for now.</span><br>
+                                            {{else}}
+                                                {{#each this.exercises}}
+                                                    <li><a class="linkItemList" href="" target="_blank">Exercise {{@index}} : {{this.title}}</a></li>
+                                                {{/each}}
+                                                {{#if this.userInfo.isAdmin}}
+                                                    <li><a class="waves-effect waves-light addingLink" href="/add?type=exercise&levelName={{this.levelName}}"><i class="material-icons left">add_circle_outline</i>Add exercise</a></li>
+                                                {{/if}}
+                                            {{/unless}}
 
-                                            </ul>
-                                        </div>
-                                    </li>
-                                </ul>
+                                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
                         {{/each}}
                     {{/unless}}
                     {{#if ../userInfo.isAdmin}}

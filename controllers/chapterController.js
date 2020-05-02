@@ -1,5 +1,7 @@
 let chapterModel = require('../models/chapterModel');
 let lessonModel = require('../models/lessonModel');
+const dbNames = require('../models/dbNames');
+
 let async =require("async");
 let ObjectID = require("mongodb").ObjectID;
 let helpers = require('../helpers/helpers');
@@ -28,4 +30,18 @@ module.exports.createChapter = function(req, res) {
                 res.render('components/addElementForm', res)
             }
         });
+};
+
+
+module.exports.deleteChapter = function (req, res) {
+    req.params.parentDB = dbNames.parentChapterDB;
+    chapterModel.deleteChapter(req.params, (err, result) => {
+        if (err) {
+            res.status(err.status);
+            res.send({errors: {message: err.message}})
+        } else {
+            res.status(200);
+            res.send("Item deleted.")
+        }
+    });
 };
