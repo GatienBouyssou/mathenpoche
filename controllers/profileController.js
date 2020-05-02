@@ -18,9 +18,9 @@ module.exports.profilePage = function(req, res) {
 module.exports.modifyProfile = function (req, res) {
     if (req.session.userInfo) {
         let newUser = buildNewUser(req.body);
-        console.log(newUser);
         userModel.modifyUser(req.session.userInfo.id, newUser,(err, result) => {
             if (err) throw err;
+            req.session.userInfo.username = newUser.username;
             let response = {message : "The user has been modified"};
             res.status = 200;
             res.send(response);

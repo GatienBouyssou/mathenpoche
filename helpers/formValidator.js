@@ -1,5 +1,6 @@
 const { check, validationResult } = require('express-validator');
 let generalModel = require("../models/genericMongoDbModel");
+let helpers = require('../helpers/helpers');
 
 module.exports.userValidationRules = () => {
     return [
@@ -79,16 +80,12 @@ function checkEmail(result, userInfo) {
 }
 
 module.exports.validateProfile = (req, res, next) => {
-    if (!req.session.userInfo || !req.session.userInfo.isAdmin) {
-        res.message = "Page not found";
-        res.error = {};
-        res.error.status = 404;
-        res.error.stack = "This page does not exist";
-        res.render('error', res);
-        return;
+    if (!req.session.userInfo && !req.session.userInfo.isAdmin) {
+        return helpers.pageNotFound(res);
     }
     generalModel.findWithQuery("user", {"email":req.body.email}, (err, result) => {
         const errors = validationResult(req);
+        console.log(errors)
         let emailIsValid = checkEmail(result, req.session.userInfo);
         if (!err && emailIsValid && errors.isEmpty()) return next();
 
