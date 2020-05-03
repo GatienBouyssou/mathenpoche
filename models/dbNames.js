@@ -4,5 +4,5 @@ exports.lessonsDB = "lessons";
 exports.exercisesDB = "exercises";
 
 exports.parentChapterDB = "level";
-exports.parentLessonDB = "lessons";
-exports.parentExerciseDB = "exercises";
+exports.parentLessonDB = "chapters";
+exports.parentExerciseDB = "lessons";
