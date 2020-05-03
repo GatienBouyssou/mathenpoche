@@ -1,15 +1,12 @@
+let fileUploaded;
 $(document).ready(() => {
-    let fileUploader = $("#fileUploader");
-    let fileUploaderDiv = $("#fileUploaderDiv");
-    let info = $("#informationLabels");
 
     $("body").on("change", "#fileUploader", function () {
-        previewFile(fileUploader[0].files[0])
+        previewFile($("#fileUploader")[0].files[0])
     });
 
     $("body").on("drop", "#fileUploaderDiv", function (e) {
         e.preventDefault();
-        console.log(e)
         previewFile(e.originalEvent.dataTransfer.files[0]);
     });
     $("body").on("dragover", "#fileUploaderDiv", function(e) {
@@ -29,7 +26,7 @@ $(document).ready(() => {
 
     /*show a label depending on his id*/
     function showALabel(id) {
-        info.children("span").hide();
+        $("#informationLabels").children("span").hide();
         $(id).show();
     }
 
@@ -50,6 +47,7 @@ $(document).ready(() => {
             file = null;
         if(isNaN(file)){
             if (file.type === "application/pdf"){
+                fileUploaded = file;
                 $(".fileSelected").text("File selected : " + file.name);
                 $(".fileSelected").show();
                 $("#duringUpload").hide()

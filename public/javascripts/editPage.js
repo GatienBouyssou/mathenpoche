@@ -59,6 +59,7 @@ $(document).ready(() => {
             }).done(function (result) {
                 submitButton.removeClass("disabled");
                 window.location.href = window.location.origin + result;
+                fileUploaded = null;
             }).fail(function (error) {
                 submitButton.removeClass("disabled");
                 let errors = error.responseJSON.errors;

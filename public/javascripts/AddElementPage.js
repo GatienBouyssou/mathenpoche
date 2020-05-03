@@ -41,9 +41,8 @@ function buildBody(form, feedbackDiv) {
             }
             formData.append("chapterId", chapterSelected[0].childNodes[1].id);
 
-            let fileInput = $("#fileUploader")[0];
-            if (fileInput.files[0])
-                formData.append("lessonFile", fileInput.files[0]);
+            if (fileUploaded)
+                formData.append("lessonFile", fileUploaded);
             else {
                 feedbackDiv.append("<li class='errorLabel'>You need to select a file</li>");
                 return null;
@@ -94,7 +93,6 @@ $(document).ready(() => {
 
     $("body").on("click", ".btn", function (e) {
         e.preventDefault();
-        console.log($(this))
         sendRequestCreateElement($(this)[0].form, $(this))
     });
 
@@ -116,6 +114,7 @@ $(document).ready(() => {
                 $(".addElementPart").html(result);
                 changeElementToAdd();
                 materializeInit();
+                fileUploaded = null;
             }).fail(function (error) {
                 console.log(error)
                 submitButton.removeClass("disabled");
