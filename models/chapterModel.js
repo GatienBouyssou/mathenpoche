@@ -17,7 +17,10 @@ function deleteElement(params, callback) {
                 fs.unlink(path, (err) => {
                     callback()
                 });
+            } else {
+                callback()
             }
+
         },
       function (callback) {
           let filter = {};
