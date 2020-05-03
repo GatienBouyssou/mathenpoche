@@ -3,25 +3,27 @@ $(document).ready(() => {
     let fileUploaderDiv = $("#fileUploaderDiv");
     let info = $("#informationLabels");
 
-    fileUploader.change(function () {
+    $("body").on("change", "#fileUploader", function () {
         previewFile(fileUploader[0].files[0])
     });
 
-    fileUploaderDiv.on("drop", function (e) {
+    $("body").on("drop", "#fileUploaderDiv", function (e) {
         e.preventDefault();
+        console.log(e)
         previewFile(e.originalEvent.dataTransfer.files[0]);
     });
-    fileUploaderDiv.on( "dragover", function(e) {
+    $("body").on("dragover", "#fileUploaderDiv", function(e) {
         e.preventDefault();
     });
 
-    fileUploaderDiv.on("drag", function(e){
+    $("body").on("drag", "#fileUploaderDiv", function(e){
+        console.log(e)
         e.originalEvent.dataTransfer.setData("", e.target.prototype.id)
     });
 
     /*make the div change when the user drag something into the box*/
-    fileUploaderDiv.on("dragenter", function (e) {
-        fileUploaderDiv.removeClass().addClass("redDashedBorder");
+    $("body").on("dragenter", "#fileUploaderDiv", function (e) {
+        $("#fileUploaderDiv").removeClass().addClass("redDashedBorder");
         showALabel("#duringUpload")
     });
 
@@ -33,11 +35,11 @@ $(document).ready(() => {
 
 
     function setNormalTemplate() {
-        fileUploaderDiv.removeClass().addClass("greyDashedBorder");
+        $("#fileUploaderDiv").removeClass().addClass("greyDashedBorder");
         showALabel("#labelUpload")
     }
 
-    fileUploaderDiv.on("dragleave", function () {
+    $("body").on("dragleave", "#fileUploaderDiv", function () {
         setNormalTemplate();
     });
 
@@ -55,14 +57,8 @@ $(document).ready(() => {
                 showALabel("#errorUpload")
             }
         }
-        fileUploaderDiv.removeClass().addClass("greyDashedBorder");
+        $("#fileUploaderDiv").removeClass().addClass("greyDashedBorder");
     }
-
-    $("#changeBtn").click(() => {
-        if (fileUploader[0].file === undefined) {
-
-        }
-    })
 });
 
 
