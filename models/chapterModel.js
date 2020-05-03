@@ -2,7 +2,7 @@ const genericModel = require('./genericMongoDbModel');
 const async = require('async');
 const dbNames = require('./dbNames');
 let ObjectID = require("mongodb").ObjectID;
-
+let fs = require('fs');
 module.exports.deleteElement = deleteElement;
 
 function deleteElement(params, callback) {
