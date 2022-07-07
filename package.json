@@ -20,7 +20,7 @@
     "helmet": "^3.22.0",
     "http-errors": "~1.6.3",
     "mmmagic": "^0.5.3",
-    "moment": "^2.24.0",
+    "moment": "^2.29.4",
     "mongodb": "^3.5.6",
     "morgan": "~1.9.1"
   },
